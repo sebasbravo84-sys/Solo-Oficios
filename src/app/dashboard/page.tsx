@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useNotifications } from '@/hooks/useNotifications'
 
 type Section = 'resumen' | 'solicitudes' | 'agenda' | 'mensajes' | 'ganancias' | 'resenas' | 'perfil'
 
@@ -37,6 +38,7 @@ const NAV_ITEMS: { id: Section; icon: string; label: string; badge?: number }[] 
 
 export default function DashboardPage() {
   const [section, setSection] = useState<Section>('resumen')
+  const { unread, markAllRead } = useNotifications()
 
   return (
     <div className="dash-layout" style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: '#f8fafc' }}>
@@ -85,9 +87,9 @@ export default function DashboardPage() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <Link href={`/perfil/pro1`} style={{ padding: '7px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, background: 'transparent', border: '1px solid #e2e8f0', color: '#64748b', textDecoration: 'none' }}>👁 Ver perfil público</Link>
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative' }} onClick={markAllRead}>
               <div style={{ width: 36, height: 36, borderRadius: 10, background: '#f1f5f9', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, cursor: 'pointer' }}>🔔</div>
-              <div style={{ width: 8, height: 8, background: '#ef4444', borderRadius: '50%', position: 'absolute', top: 6, right: 6, border: '2px solid #fff' }} />
+              {unread > 0 && <div style={{ position: 'absolute', top: -4, right: -4, background: '#ef4444', color: '#fff', fontSize: 10, fontWeight: 800, minWidth: 18, height: 18, borderRadius: 9, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px', border: '2px solid #fff' }}>{unread}</div>}
             </div>
             <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg,#0ea5e9,#2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-outfit)', fontSize: 14, fontWeight: 900, color: '#fff', cursor: 'pointer' }}>
               {MOCK_PRO.initials}

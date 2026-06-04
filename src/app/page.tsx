@@ -155,8 +155,13 @@ export default function HomePage() {
       {/* FOOTER */}
       <footer style={{ padding: 'clamp(40px,6vw,80px) clamp(16px,5vw,40px)', textAlign: 'center', background: '#fff', borderTop: '1px solid #cbd5e1' }}>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(16px,4vw,40px)', marginBottom: 24, flexWrap: 'wrap' }}>
-          {['Cómo funciona', 'Para Profesionales', 'Precios', 'Blog', 'Ayuda', 'Privacidad'].map((link) => (
-            <Link key={link} href="#" style={{ color: '#64748b', textDecoration: 'none', fontSize: 14, fontWeight: 500, fontFamily: 'var(--font-outfit)' }}>{link}</Link>
+          {[
+            { label: 'Cómo funciona', href: '/como-funciona' },
+            { label: 'Para Profesionales', href: '/onboarding' },
+            { label: 'Precios', href: '/precios' },
+            { label: 'Ayuda', href: '/como-funciona#faq' },
+          ].map(({ label, href }) => (
+            <Link key={label} href={href} style={{ color: '#64748b', textDecoration: 'none', fontSize: 14, fontWeight: 500, fontFamily: 'var(--font-outfit)' }}>{label}</Link>
           ))}
         </div>
         <p style={{ color: '#94a3b8', fontSize: 13 }}>© 2025 SoloOficios. Hecho con ❤️ en Argentina.</p>

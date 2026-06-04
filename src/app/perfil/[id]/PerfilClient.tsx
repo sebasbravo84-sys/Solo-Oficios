@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Professional } from '@/types'
 import { AVATAR_COLORS, getInitials, tradeEmoji } from '@/lib/mock-data'
 import { createClient } from '@/lib/supabase/client'
+import ReviewForm from '@/components/ReviewForm'
 
 const MOCK_REVIEWS = [
   { name: 'Juan Carlos G.', stars: 5, text: 'Excelente profesional. Llegó puntual, resolvió rápido y el cobro fue lo acordado. Muy recomendable.', date: 'hace 3 días' },
@@ -19,6 +20,7 @@ type Tab = 'info' | 'portfolio' | 'reviews'
 export default function PerfilClient({ pro }: { pro: Professional }) {
   const [tab, setTab] = useState<Tab>('info')
   const [modalOpen, setModalOpen] = useState(false)
+  const [reviewOpen, setReviewOpen] = useState(false)
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [form, setForm] = useState({ nombre: '', descripcion: '', urgencia: 'Lo antes posible' })
@@ -41,6 +43,17 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
         description: form.descripcion,
         urgency: form.urgencia,
         status: 'pending',
+      })
+
+      // Notificar al profesional
+      await fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          professional_id: pro.id,
+          message: `Nueva solicitud: "${form.descripcion.slice(0, 60)}..."`,
+          type: 'solicitud',
+        }),
       })
 
       // Crear conversación si no existe
@@ -248,6 +261,9 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
                 Mantené el pago y el chat en la plataforma para estar protegido.
               </div>
             </div>
+            <button onClick={() => setReviewOpen(true)} style={{ width: '100%', marginTop: 12, padding: 12, background: 'transparent', border: '1px solid #e2e8f0', borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', color: '#64748b' }}>
+              Dejar reseña ⭐
+            </button>
           </div>
 
           <Link href="/busqueda" style={{ display: 'block', marginTop: 16, textAlign: 'center', color: '#64748b', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>
@@ -304,6 +320,16 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
                 <button onClick={closeModal} style={{ marginTop: 16, background: 'none', border: 'none', color: '#94a3b8', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>Cerrar</button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* MODAL RESEÑA */}
+      {reviewOpen && (
+        <div onClick={() => setReviewOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: '#fff', border: '1px solid #cbd5e1', borderRadius: 28, width: 480, maxWidth: '100%', padding: 40, position: 'relative' }}>
+            <button onClick={() => setReviewOpen(false)} style={{ position: 'absolute', top: 20, right: 20, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 18, color: '#64748b', background: '#f1f5f9', border: 'none', borderRadius: '50%' }}>✕</button>
+            <ReviewForm professionalId={pro.id} professionalName={pro.name} onClose={() => setReviewOpen(false)} />
           </div>
         </div>
       )}
