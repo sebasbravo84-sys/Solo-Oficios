@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { PROFESSIONALS, AVATAR_COLORS, getInitials, tradeEmoji } from '@/lib/mock-data'
+import { CIUDADES } from '@/lib/ciudades'
 
 const CATEGORIES = [
   { label: '🏠 Hogar', value: 'Hogar' },
@@ -90,13 +91,10 @@ export default function BusquedaClient() {
             <select
               value={ciudad}
               onChange={e => setCiudad(e.target.value)}
-              style={{ background: 'transparent', border: 'none', outline: 'none', padding: '0 18px', fontSize: 14, color: '#94a3b8', fontFamily: 'Inter, sans-serif', cursor: 'pointer' }}
+              style={{ background: 'transparent', border: 'none', outline: 'none', padding: '0 18px', fontSize: 14, color: '#94a3b8', fontFamily: 'Inter, sans-serif', cursor: 'pointer', maxWidth: 200 }}
             >
-              <option>Catamarca Capital</option>
-              <option>Valle Viejo</option>
-              <option>Fray M. Esquiú</option>
-              <option>Buenos Aires</option>
-              <option>Córdoba</option>
+              <option value="">Todo el país</option>
+              {CIUDADES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
             <button onClick={buscar} style={{ background: '#2563eb', border: 'none', padding: '0 28px', fontSize: 15, fontWeight: 700, color: '#fff', cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}>
               Buscar →

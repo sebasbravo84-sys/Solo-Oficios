@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { CIUDADES } from '@/lib/ciudades'
 
 const inputStyle: React.CSSProperties = {
   width: '100%', padding: '14px 16px', border: '1.5px solid #cbd5e1',
@@ -77,14 +78,7 @@ export default function HeroForm() {
           <label style={labelStyle}>Tu dirección</label>
           <input type="text" style={inputStyle} list="ciudades-ar" placeholder="Ingresá calle, ciudad o provincia" value={form.direccion} onChange={e => setForm(f => ({ ...f, direccion: e.target.value }))} />
           <datalist id="ciudades-ar">
-            <option value="Catamarca Capital, Catamarca" />
-            <option value="Valle Viejo, Catamarca" />
-            <option value="San Fernando del Valle, Catamarca" />
-            <option value="San Miguel de Tucumán, Tucumán" />
-            <option value="Córdoba Capital, Córdoba" />
-            <option value="Buenos Aires, CABA" />
-            <option value="Rosario, Santa Fe" />
-            <option value="Mendoza Capital, Mendoza" />
+            {CIUDADES.map(c => <option key={c} value={c} />)}
           </datalist>
         </div>
 
