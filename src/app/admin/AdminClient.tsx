@@ -41,16 +41,21 @@ export default function AdminClient({ stats, professionals, profiles, bookings, 
   async function savePro() {
     setSaving(true)
     if (modal === 'add_pro') {
-      // 1. Crear usuario en auth
-      const { data: authData, error: authErr } = await supabase.auth.admin
-        ? { data: null, error: null } // admin API no disponible en client
-        : { data: null, error: null }
-      void authData; void authErr
+      const newId = crypto.randomUUID()
 
-      // Insertar directamente en professionals con un ID temporal
-      const fakeId = crypto.randomUUID()
+      // 1. Primero crear el perfil (professionals.id → profiles.id FK)
+      const { error: profileErr } = await supabase.from('profiles').insert({
+        id: newId,
+        nombre: proForm.nombre,
+        email: proForm.email,
+        rol: 'profesional',
+        whatsapp: proForm.whatsapp || null,
+      })
+      if (profileErr) { showMsg('Error al crear perfil: ' + profileErr.message); setSaving(false); return }
+
+      // 2. Crear el profesional con el mismo ID
       const { error } = await supabase.from('professionals').insert({
-        id: fakeId,
+        id: newId,
         trade: proForm.trade,
         location: proForm.location,
         price: proForm.price,
@@ -62,9 +67,13 @@ export default function AdminClient({ stats, professionals, profiles, bookings, 
         is_pro: false,
         is_matriculado: !!proForm.matricula_num,
       })
-      if (error) { showMsg('Error: ' + error.message); setSaving(false); return }
-      setPros(prev => [{ id: fakeId, ...proForm, verified: false, stars: 0, reviews_count: 0 }, ...prev])
-      showMsg('Profesional agregado. Debe completar su registro para activarse.')
+      if (error) {
+        // Revertir el perfil si falla el profesional
+        await supabase.from('profiles').delete().eq('id', newId)
+        showMsg('Error: ' + error.message); setSaving(false); return
+      }
+      setPros(prev => [{ id: newId, trade: proForm.trade, location: proForm.location, price: proForm.price, bio: proForm.bio, verified: false, stars: 0, reviews_count: 0, profiles: { nombre: proForm.nombre, email: proForm.email } }, ...prev])
+      showMsg('✓ Profesional agregado correctamente.')
     } else if (modal === 'edit_pro' && editingPro) {
       const { error } = await supabase.from('professionals').update({
         trade: proForm.trade,
