@@ -109,7 +109,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Stats row */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 28 }}>
+              <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 28 }}>
                 {[
                   { icon: '📨', label: 'Solicitudes hoy', value: '4', delta: '+2', up: true, bg: '#eff6ff' },
                   { icon: '💰', label: 'Ganancias mes', value: '$124K', delta: '+18%', up: true, bg: '#f0fdf4' },

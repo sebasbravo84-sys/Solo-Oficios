@@ -33,6 +33,7 @@ export default function BusquedaClient() {
   const [soloMatriculado, setSoloMatriculado] = useState(false)
   const [soloVerificado, setSoloVerificado] = useState(false)
   const [minStars, setMinStars] = useState(0)
+  const [filtrosOpen, setFiltrosOpen] = useState(false)
 
   const showResults = !!(catParam || urgenteParam)
 
@@ -129,40 +130,63 @@ export default function BusquedaClient() {
   }
 
   // ─── RESULTS ───
+  const filtrosContent = (
+    <>
+      <FilterTitle>Precio por hora</FilterTitle>
+      <div style={{ padding: '4px 0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', marginBottom: 8 }}>
+          <span>$3.000</span><span>${maxPrice.toLocaleString('es-AR')}</span>
+        </div>
+        <input type="range" min={3000} max={30000} step={500} value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} style={{ width: '100%', accentColor: '#2563eb' }} />
+      </div>
+      <FilterTitle>Verificación</FilterTitle>
+      <CheckRow label="DNI verificado" count={91} checked={soloVerificado} onChange={() => setSoloVerificado(v => !v)} />
+      <CheckRow label="Matrícula profesional" count={42} checked={soloMatriculado} onChange={() => setSoloMatriculado(v => !v)} />
+      <FilterTitle>Calificación mínima</FilterTitle>
+      <CheckRow label="⭐⭐⭐⭐⭐ Solo 5 estrellas" count={23} checked={minStars === 5} onChange={() => setMinStars(s => s === 5 ? 0 : 5)} />
+      <CheckRow label="⭐⭐⭐⭐+ Más de 4" count={68} checked={minStars === 4} onChange={() => setMinStars(s => s === 4 ? 0 : 4)} />
+      <CheckRow label="⭐⭐⭐+ Más de 3" count={87} checked={minStars === 3} onChange={() => setMinStars(s => s === 3 ? 0 : 3)} />
+      <div style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid #e2e8f0' }}>
+        <button onClick={() => { setSoloMatriculado(false); setSoloVerificado(false); setMinStars(0); setMaxPrice(30000); setFiltrosOpen(false) }} style={{ width: '100%', padding: 10, background: 'transparent', border: '1px solid #e2e8f0', borderRadius: 9, fontSize: 12, color: '#64748b', fontFamily: 'Inter, sans-serif', cursor: 'pointer' }}>
+          Limpiar filtros
+        </button>
+      </div>
+    </>
+  )
+
   return (
     <div style={{ display: 'flex', minHeight: 'calc(100vh - 120px)' }}>
-      {/* SIDEBAR FILTROS */}
-      <div style={{ width: 260, flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '24px 20px', position: 'sticky', top: 80, height: 'calc(100vh - 80px)', overflowY: 'auto' }}>
-        <FilterTitle>Precio por hora</FilterTitle>
-        <div style={{ padding: '4px 0' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', marginBottom: 8 }}>
-            <span>$3.000</span><span>${maxPrice.toLocaleString('es-AR')}</span>
-          </div>
-          <input type="range" min={3000} max={30000} step={500} value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} style={{ width: '100%', accentColor: '#2563eb' }} />
-        </div>
 
-        <FilterTitle>Verificación</FilterTitle>
-        <CheckRow label="DNI verificado" count={91} checked={soloVerificado} onChange={() => setSoloVerificado(v => !v)} />
-        <CheckRow label="Matrícula profesional" count={42} checked={soloMatriculado} onChange={() => setSoloMatriculado(v => !v)} />
-
-        <FilterTitle>Calificación mínima</FilterTitle>
-        <CheckRow label="⭐⭐⭐⭐⭐ Solo 5 estrellas" count={23} checked={minStars === 5} onChange={() => setMinStars(s => s === 5 ? 0 : 5)} />
-        <CheckRow label="⭐⭐⭐⭐+ Más de 4" count={68} checked={minStars === 4} onChange={() => setMinStars(s => s === 4 ? 0 : 4)} />
-        <CheckRow label="⭐⭐⭐+ Más de 3" count={87} checked={minStars === 3} onChange={() => setMinStars(s => s === 3 ? 0 : 3)} />
-
-        <div style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid #e2e8f0' }}>
-          <button onClick={() => { setSoloMatriculado(false); setSoloVerificado(false); setMinStars(0); setMaxPrice(30000) }} style={{ width: '100%', padding: 10, background: 'transparent', border: '1px solid #e2e8f0', borderRadius: 9, fontSize: 12, color: '#64748b', fontFamily: 'Inter, sans-serif', cursor: 'pointer' }}>
-            Limpiar filtros
-          </button>
-        </div>
+      {/* SIDEBAR desktop */}
+      <div className="busqueda-sidebar" style={{ width: 260, flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '24px 20px', position: 'sticky', top: 70, height: 'calc(100vh - 70px)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        {filtrosContent}
       </div>
 
+      {/* DRAWER mobile */}
+      {filtrosOpen && (
+        <div className="busqueda-sidebar open" onClick={e => { if (e.target === e.currentTarget) setFiltrosOpen(false) }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <span style={{ fontFamily: 'var(--font-outfit)', fontSize: 20, fontWeight: 800 }}>Filtros</span>
+            <button onClick={() => setFiltrosOpen(false)} style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#64748b' }}>✕</button>
+          </div>
+          {filtrosContent}
+          <button onClick={() => setFiltrosOpen(false)} style={{ width: '100%', marginTop: 16, padding: 14, background: '#2563eb', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+            Ver {filtered.length} resultados
+          </button>
+        </div>
+      )}
+
       {/* MAIN */}
-      <div style={{ flex: 1, padding: '24px 28px', overflow: 'hidden' }}>
+      <div style={{ flex: 1, padding: '16px 16px', overflow: 'hidden' }}>
         {/* Sort bar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0', borderBottom: '1px solid #e2e8f0', marginBottom: 20 }}>
-          <div style={{ fontSize: 14, color: '#94a3b8' }}>
-            <strong style={{ color: '#0f172a' }}>{filtered.length} profesionales</strong> en {ciudad}
+        <div className="sort-bar-wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 0', borderBottom: '1px solid #e2e8f0', marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button className="busqueda-filtros-btn" onClick={() => setFiltrosOpen(true)} style={{ display: 'none', alignItems: 'center', gap: 6, padding: '8px 14px', background: '#f1f5f9', border: '1px solid #e2e8f0', borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', color: '#0f172a' }}>
+              ⚙️ Filtros
+            </button>
+            <div style={{ fontSize: 14, color: '#94a3b8' }}>
+              <strong style={{ color: '#0f172a' }}>{filtered.length} profesionales</strong>
+            </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 13, color: '#64748b' }}>Ordenar:</span>

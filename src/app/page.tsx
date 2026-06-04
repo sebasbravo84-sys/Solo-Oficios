@@ -83,7 +83,7 @@ export default function HomePage() {
             Más de <strong style={{ color: '#0f172a' }}>12.500</strong> conexiones exitosas promedian <strong style={{ color: '#0f172a' }}>4.8</strong> ⭐
           </span>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
+        <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
           {reviews.map((r) => (
             <div key={r.name} style={{ background: '#fff', borderRadius: 20, padding: 32, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', border: '1px solid #cbd5e1' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
@@ -106,7 +106,7 @@ export default function HomePage() {
           <h2 style={{ fontSize: 32, fontFamily: 'var(--font-outfit)', fontWeight: 700 }}>Destacados de esta semana</h2>
           <Link href="/busqueda" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-outfit)' }}>Ver lista completa →</Link>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
+        <div className="featured-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
           {featured.map((p) => (
             <Link key={p.id} href={`/perfil/${p.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div style={{ background: '#fff', borderRadius: 20, padding: 24, border: '1px solid #cbd5e1', cursor: 'pointer' }}>

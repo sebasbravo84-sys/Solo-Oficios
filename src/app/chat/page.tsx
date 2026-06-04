@@ -121,7 +121,7 @@ export default function ChatPage() {
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', height: 'calc(100vh - 60px)' }}>
 
         {/* SIDEBAR — Conversaciones */}
-        <div style={{ width: 320, flexShrink: 0, borderRight: '1px solid #1e293b', display: 'flex', flexDirection: 'column', background: '#0f172a' }}>
+        <div className="chat-conversations" style={{ width: 320, flexShrink: 0, borderRight: '1px solid #1e293b', display: 'flex', flexDirection: 'column', background: '#0f172a' }}>
           <div style={{ padding: '18px 18px 12px', borderBottom: '1px solid #1e293b', flexShrink: 0 }}>
             <div style={{ fontFamily: 'var(--font-outfit)', fontSize: 18, fontWeight: 900, letterSpacing: '-.3px', marginBottom: 12 }}>
               Mensajes <em style={{ fontStyle: 'italic', color: '#2563eb' }}>seguros</em>
@@ -276,8 +276,8 @@ export default function ChatPage() {
           </div>
         </div>
 
-        {/* RIGHT PANEL — Info profesional */}
-        <div style={{ width: 260, flexShrink: 0, borderLeft: '1px solid #1e293b', background: '#0f172a', overflowY: 'auto' }}>
+        {/* RIGHT PANEL — Info profesional — oculto en mobile */}
+        <div className="chat-right-panel" style={{ width: 260, flexShrink: 0, borderLeft: '1px solid #1e293b', background: '#0f172a', overflowY: 'auto' }}>
           <div style={{ padding: '20px 18px', borderBottom: '1px solid #1e293b' }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Profesional</div>
             <div style={{ width: 56, height: 56, borderRadius: 16, background: active.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-outfit)', fontSize: 22, fontWeight: 900, color: '#fff', margin: '0 auto 10px' }}>{active.initials}</div>
