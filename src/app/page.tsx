@@ -52,14 +52,14 @@ export default function HomePage() {
 
       {/* CATEGORÍAS */}
       <section className="section-wrap" style={{ padding: '60px 40px', maxWidth: 1240, margin: '0 auto' }}>
-        <h2 style={{ fontSize: 32, fontFamily: 'var(--font-outfit)', fontWeight: 700, textAlign: 'center', marginBottom: 16 }}>Explorá nuestros servicios</h2>
-        <p style={{ textAlign: 'center', color: '#64748b', fontSize: 18, maxWidth: 600, margin: '0 auto 50px', lineHeight: 1.6 }}>
+        <h2 style={{ fontSize: 'clamp(22px,5vw,32px)', fontFamily: 'var(--font-outfit)', fontWeight: 700, textAlign: 'center', marginBottom: 16 }}>Explorá nuestros servicios</h2>
+        <p style={{ textAlign: 'center', color: '#64748b', fontSize: 16, maxWidth: 600, margin: '0 auto 40px', lineHeight: 1.6 }}>
           Gente de oficio preparada para ayudarte en lo que tu casa necesite.
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 24px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 16px', justifyContent: 'center' }}>
           {categories.map((cat) => (
-            <Link key={cat.slug} href={`/busqueda?cat=${cat.slug}`} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none', color: 'inherit', width: 110 }}>
-              <span style={{ background: '#fff', borderRadius: '50%', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', marginBottom: 16, display: 'flex', justifyContent: 'center', width: 88, height: 88, alignItems: 'center', border: '1px solid #cbd5e1' }}>
+            <Link key={cat.slug} href={`/busqueda?cat=${cat.slug}`} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none', color: 'inherit', width: 90 }}>
+              <span style={{ background: '#fff', borderRadius: '50%', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', marginBottom: 10, display: 'flex', justifyContent: 'center', width: 72, height: 72, alignItems: 'center', border: '1px solid #cbd5e1' }}>
                 <svg viewBox="0 0 24 24" width={34} height={34} stroke="#2563eb" strokeWidth={1.5} fill="none" strokeLinecap="round" strokeLinejoin="round">
                   {cat.svgPath}
                 </svg>
@@ -77,8 +77,8 @@ export default function HomePage() {
       </section>
 
       {/* REVIEWS */}
-      <section style={{ padding: '0 40px 100px', maxWidth: 1240, margin: '0 auto' }}>
-        <h2 style={{ fontSize: 32, fontFamily: 'var(--font-outfit)', fontWeight: 700, textAlign: 'center', marginBottom: 16 }}>La comunidad recomienda</h2>
+      <section className="section-wrap" style={{ padding: '0 40px 60px', maxWidth: 1240, margin: '0 auto' }}>
+        <h2 style={{ fontSize: 'clamp(22px,5vw,32px)', fontFamily: 'var(--font-outfit)', fontWeight: 700, textAlign: 'center', marginBottom: 16 }}>La comunidad recomienda</h2>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <span style={{ fontSize: 16, color: '#64748b', padding: '16px 24px', background: 'white', borderRadius: 40, display: 'inline-block', border: '1px solid #cbd5e1' }}>
             Más de <strong style={{ color: '#0f172a' }}>12.500</strong> conexiones exitosas promedian <strong style={{ color: '#0f172a' }}>4.8</strong> ⭐
@@ -102,9 +102,9 @@ export default function HomePage() {
       </section>
 
       {/* DESTACADOS */}
-      <section style={{ padding: '0 40px 100px', maxWidth: 1240, margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 30 }}>
-          <h2 style={{ fontSize: 32, fontFamily: 'var(--font-outfit)', fontWeight: 700 }}>Destacados de esta semana</h2>
+      <section className="section-wrap" style={{ padding: '0 40px 60px', maxWidth: 1240, margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 30, flexWrap: 'wrap', gap: 8 }}>
+          <h2 style={{ fontSize: 'clamp(20px,5vw,32px)', fontFamily: 'var(--font-outfit)', fontWeight: 700 }}>Destacados de esta semana</h2>
           <Link href="/busqueda" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-outfit)' }}>Ver lista completa →</Link>
         </div>
         <div className="featured-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
@@ -132,34 +132,34 @@ export default function HomePage() {
       </section>
 
       {/* BANNER */}
-      <section style={{ padding: '0 40px 100px', maxWidth: 1240, margin: '0 auto' }}>
-        <div style={{ background: 'linear-gradient(135deg, #2563eb, #0ea5e9)', borderRadius: 32, padding: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'white', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
-          <div style={{ maxWidth: 540 }}>
-            <h2 style={{ fontSize: 40, fontFamily: 'var(--font-outfit)', fontWeight: 700, marginBottom: 20, lineHeight: 1.1, letterSpacing: '-1px' }}>
+      <section className="section-wrap" style={{ padding: '0 40px 60px', maxWidth: 1240, margin: '0 auto' }}>
+        <div className="app-banner-wrap" style={{ background: 'linear-gradient(135deg, #2563eb, #0ea5e9)', borderRadius: 32, padding: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'white', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
+          <div style={{ maxWidth: 540, width: '100%' }}>
+            <h2 style={{ fontSize: 'clamp(24px,4vw,40px)', fontFamily: 'var(--font-outfit)', fontWeight: 700, marginBottom: 20, lineHeight: 1.1, letterSpacing: '-1px' }}>
               Recibí avisos de<br />trabajos cerca tuyo
             </h2>
-            <p style={{ fontSize: 18, marginBottom: 32, opacity: 0.9, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 16, marginBottom: 28, opacity: 0.9, lineHeight: 1.5 }}>
               Dejá tu email y te avisamos cuando haya solicitudes en tu zona.
             </p>
-            <div style={{ display: 'flex', gap: 12, background: 'rgba(255,255,255,0.1)', padding: 8, borderRadius: 20, backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
-              <input type="email" placeholder="tu@email.com" style={{ flex: 1, padding: '16px 20px', borderRadius: 14, border: 'none', fontSize: 16, background: 'white', outline: 'none' }} />
-              <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0 32px', borderRadius: 14, fontWeight: 600, fontFamily: 'var(--font-outfit)', cursor: 'pointer', fontSize: 16 }}>
+            <div className="app-input-wrap" style={{ display: 'flex', gap: 12, background: 'rgba(255,255,255,0.1)', padding: 8, borderRadius: 20, backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+              <input type="email" placeholder="tu@email.com" style={{ flex: 1, padding: '14px 20px', borderRadius: 14, border: 'none', fontSize: 15, background: 'white', outline: 'none', minWidth: 0 }} />
+              <button style={{ background: '#0f172a', color: 'white', border: 'none', padding: '0 24px', borderRadius: 14, fontWeight: 600, fontFamily: 'var(--font-outfit)', cursor: 'pointer', fontSize: 15, whiteSpace: 'nowrap' }}>
                 Anotarme
               </button>
             </div>
           </div>
-          <div style={{ fontSize: 120 }}>🔧</div>
+          <div className="hide-mobile" style={{ fontSize: 100 }}>🔧</div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '80px 40px', textAlign: 'center', background: '#fff', borderTop: '1px solid #cbd5e1' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 40, marginBottom: 32, flexWrap: 'wrap' }}>
+      <footer style={{ padding: 'clamp(40px,6vw,80px) clamp(16px,5vw,40px)', textAlign: 'center', background: '#fff', borderTop: '1px solid #cbd5e1' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(16px,4vw,40px)', marginBottom: 24, flexWrap: 'wrap' }}>
           {['Cómo funciona', 'Para Profesionales', 'Precios', 'Blog', 'Ayuda', 'Privacidad'].map((link) => (
-            <Link key={link} href="#" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500, fontFamily: 'var(--font-outfit)' }}>{link}</Link>
+            <Link key={link} href="#" style={{ color: '#64748b', textDecoration: 'none', fontSize: 14, fontWeight: 500, fontFamily: 'var(--font-outfit)' }}>{link}</Link>
           ))}
         </div>
-        <p style={{ color: '#94a3b8', fontSize: 14 }}>© 2025 SoloOficios. Hecho con ❤️ en Argentina.</p>
+        <p style={{ color: '#94a3b8', fontSize: 13 }}>© 2025 SoloOficios. Hecho con ❤️ en Argentina.</p>
       </footer>
     </>
   )
