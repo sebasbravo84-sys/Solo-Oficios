@@ -63,7 +63,7 @@ export default function BusquedaClient() {
     return (
       <div style={{ minHeight: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 20px', position: 'relative', overflow: 'hidden', background: '#f8fafc' }}>
         {/* Grid background */}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(#e2e8f0 1px,transparent 1px),linear-gradient(90deg,#e2e8f0 1px,transparent 1px)', backgroundSize: '52px 52px', opacity: .2, maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent)', WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent)' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(#e2e8f0 1px,transparent 1px),linear-gradient(90deg,#e2e8f0 1px,transparent 1px)', backgroundSize: '52px 52px', opacity: .2, maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent)', WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', width: 700, height: 700, background: 'radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-55%)', pointerEvents: 'none' }} />
 
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(37,99,235,.08)', border: '1px solid rgba(37,99,235,.2)', padding: '6px 16px', borderRadius: 100, fontSize: 12, color: '#2563eb', fontWeight: 600, marginBottom: 28 }}>
