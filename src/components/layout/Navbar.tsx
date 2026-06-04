@@ -21,9 +21,11 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <div className="hide-mobile" style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+        <div className="hide-mobile" style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
           <Link href="/busqueda" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>Buscar</Link>
-          <Link href="/onboarding" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>Publicar oficio</Link>
+          <Link href="/mapa" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>🗺️ Mapa</Link>
+          <Link href="/como-funciona" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>Cómo funciona</Link>
+          <Link href="/precios" style={{ color: '#64748b', textDecoration: 'none', fontSize: 15, fontWeight: 500 }}>Precios</Link>
           <Link href="/auth/login" style={{ background: '#f1f5f9', padding: '10px 20px', borderRadius: 30, fontWeight: 600, color: '#2563eb', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-outfit)' }}>
             👤 Ingresar
           </Link>
@@ -48,6 +50,9 @@ export default function Navbar() {
         <div style={{ position: 'fixed', top: 70, left: 0, right: 0, bottom: 0, background: '#fff', zIndex: 99, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto' }}>
           {[
             { href: '/busqueda', label: '🔍 Buscar profesionales' },
+            { href: '/mapa', label: '🗺️ Mapa de profesionales' },
+            { href: '/como-funciona', label: '❓ Cómo funciona' },
+            { href: '/precios', label: '💳 Planes y precios' },
             { href: '/onboarding', label: '🛠️ Publicar mi oficio' },
             { href: '/auth/login', label: '👤 Ingresar' },
             { href: '/auth/registro', label: '✨ Crear cuenta gratis' },

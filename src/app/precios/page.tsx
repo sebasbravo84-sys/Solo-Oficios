@@ -112,8 +112,8 @@ export default function PreciosPage() {
       </section>
 
       {/* PLANES */}
-      <section style={{ padding: '0 20px 80px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 24 }}>
+      <section style={{ padding: '0 40px 80px', maxWidth: 1300, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 28 }}>
           {PLANES.map(plan => (
             <div key={plan.id} style={{ background: plan.bg, border: `2px solid ${plan.border}`, borderRadius: 24, padding: 32, position: 'relative', display: 'flex', flexDirection: 'column' }}>
               {plan.badge && (
