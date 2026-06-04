@@ -21,11 +21,13 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
+html, body {
   background: var(--bg-main);
   color: var(--text-dark);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 /* ── RESPONSIVE HELPERS ── */
@@ -35,6 +37,12 @@ body {
 
   /* Stats 2x2 en mobile */
   .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+
+  /* Form selects apilados */
+  .form-row-selects { flex-direction: column !important; }
+
+  /* Secciones full width */
+  section, nav, footer { max-width: 100vw !important; overflow-x: hidden !important; }
 
   /* Hero landing */
   .hero-content-wrap {

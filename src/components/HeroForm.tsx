@@ -40,7 +40,7 @@ export default function HeroForm() {
       </p>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
+        <div className="form-row-selects" style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
           <div style={{ flex: 1 }}>
             <label style={labelStyle}>Rubro</label>
             <select style={inputStyle} value={form.cat} onChange={e => setForm(f => ({ ...f, cat: e.target.value }))}>

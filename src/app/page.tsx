@@ -33,6 +33,7 @@ export default function HomePage() {
         padding: '60px 20px',
         display: 'flex',
         justifyContent: 'center',
+        width: '100%',
         background: "linear-gradient(135deg, rgba(15,23,42,0.85), rgba(37,99,235,0.5)), url('https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=2400&auto=format&fit=crop') no-repeat center center/cover",
         minHeight: 'auto',
       }}>
