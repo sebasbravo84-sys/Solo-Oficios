@@ -39,10 +39,10 @@ export default function DashboardPage() {
   const [section, setSection] = useState<Section>('resumen')
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: '#f8fafc' }}>
+    <div className="dash-layout" style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: '#f8fafc' }}>
 
-      {/* SIDEBAR */}
-      <div style={{ width: 220, flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '0 0 24px', display: 'flex', flexDirection: 'column', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
+      {/* SIDEBAR — oculto en mobile */}
+      <div className="dash-sidebar" style={{ width: 220, flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e8f0', padding: '0 0 24px', display: 'flex', flexDirection: 'column', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
 
         {/* Logo */}
         <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid #e2e8f0' }}>
@@ -96,7 +96,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Content */}
-        <div style={{ padding: 32, maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ padding: 'clamp(16px,3vw,32px)', maxWidth: 1100, margin: '0 auto', paddingBottom: 80 }}>
 
           {/* RESUMEN */}
           {section === 'resumen' && (
@@ -246,6 +246,17 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* BOTTOM NAV — solo mobile */}
+      <div className="dash-bottom-nav">
+        {NAV_ITEMS.slice(0, 5).map(item => (
+          <button key={item.id} onClick={() => setSection(item.id)} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, background: 'none', border: 'none', cursor: 'pointer', padding: '6px 8px', position: 'relative', color: section === item.id ? '#2563eb' : '#94a3b8' }}>
+            <span style={{ fontSize: 20 }}>{item.icon}</span>
+            <span style={{ fontSize: 9, fontWeight: 700 }}>{item.label}</span>
+            {item.badge && <span style={{ position: 'absolute', top: 2, right: 4, background: '#ef4444', color: '#fff', fontSize: 8, fontWeight: 800, width: 14, height: 14, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.badge}</span>}
+          </button>
+        ))}
       </div>
     </div>
   )

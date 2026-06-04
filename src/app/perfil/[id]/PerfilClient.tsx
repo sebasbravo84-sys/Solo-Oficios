@@ -37,9 +37,9 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
   return (
     <>
       {/* HERO */}
-      <div style={{ background: 'linear-gradient(180deg,#fff 0%,#f8fafc 100%)', borderBottom: '1px solid #e2e8f0', padding: '50px 0 0' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 32px' }}>
-          <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', marginBottom: 0 }}>
+      <div style={{ background: 'linear-gradient(180deg,#fff 0%,#f8fafc 100%)', borderBottom: '1px solid #e2e8f0', padding: '32px 0 0' }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 20px' }}>
+          <div className="perfil-hero-top" style={{ display: 'flex', gap: 24, alignItems: 'flex-start', marginBottom: 0 }}>
             {/* Avatar */}
             <div style={{ width: 100, height: 100, borderRadius: 24, background: avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-outfit)', fontSize: 42, fontWeight: 900, color: '#fff', flexShrink: 0, border: '4px solid #fff', boxShadow: `0 0 0 2px #2563eb` }}>
               {initials}
@@ -79,7 +79,7 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
       </div>
 
       {/* BODY */}
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '40px 32px', display: 'grid', gridTemplateColumns: '1fr 340px', gap: 40 }}>
+      <div className="perfil-body" style={{ maxWidth: 1000, margin: '0 auto', padding: '32px 20px', display: 'grid', gridTemplateColumns: '1fr 340px', gap: 40 }}>
 
         {/* MAIN CONTENT */}
         <div>

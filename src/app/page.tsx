@@ -30,18 +30,18 @@ export default function HomePage() {
 
       {/* HERO */}
       <section style={{
-        padding: '80px 40px',
+        padding: '60px 20px',
         display: 'flex',
         justifyContent: 'center',
         background: "linear-gradient(135deg, rgba(15,23,42,0.85), rgba(37,99,235,0.5)), url('https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=2400&auto=format&fit=crop') no-repeat center center/cover",
-        minHeight: 640,
+        minHeight: 'auto',
       }}>
-        <div style={{ maxWidth: 1240, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 60, position: 'relative', zIndex: 2 }}>
+        <div className="hero-content-wrap" style={{ maxWidth: 1240, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 60, position: 'relative', zIndex: 2 }}>
           <div style={{ flex: 1, color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-            <h1 style={{ fontSize: 'clamp(48px,6vw,72px)', fontFamily: 'var(--font-outfit)', fontWeight: 800, lineHeight: 1.1, marginBottom: 20, letterSpacing: '-1.5px' }}>
+            <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', fontFamily: 'var(--font-outfit)', fontWeight: 800, lineHeight: 1.1, marginBottom: 20, letterSpacing: '-1.5px' }}>
               La red de expertos<br />para tu hogar
             </h1>
-            <p style={{ fontSize: 22, color: '#e2e8f0', textShadow: '0 2px 4px rgba(0,0,0,0.8)', lineHeight: 1.5 }}>
+            <p style={{ fontSize: 18, color: '#e2e8f0', textShadow: '0 2px 4px rgba(0,0,0,0.8)', lineHeight: 1.5 }}>
               Encontrá miles de profesionales verificados listos para solucionar tus proyectos.
             </p>
           </div>
@@ -50,7 +50,7 @@ export default function HomePage() {
       </section>
 
       {/* CATEGORÍAS */}
-      <section style={{ padding: '100px 40px', maxWidth: 1240, margin: '0 auto' }}>
+      <section className="section-wrap" style={{ padding: '60px 40px', maxWidth: 1240, margin: '0 auto' }}>
         <h2 style={{ fontSize: 32, fontFamily: 'var(--font-outfit)', fontWeight: 700, textAlign: 'center', marginBottom: 16 }}>Explorá nuestros servicios</h2>
         <p style={{ textAlign: 'center', color: '#64748b', fontSize: 18, maxWidth: 600, margin: '0 auto 50px', lineHeight: 1.6 }}>
           Gente de oficio preparada para ayudarte en lo que tu casa necesite.

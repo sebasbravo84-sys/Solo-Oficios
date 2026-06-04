@@ -28,7 +28,7 @@ export default function HeroForm() {
   }
 
   return (
-    <div style={{ background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(12px)', borderRadius: 20, padding: 40, width: '100%', maxWidth: 520, boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)', border: '1px solid rgba(255,255,255,0.4)' }}>
+    <div style={{ background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(12px)', borderRadius: 20, padding: 'clamp(20px,4vw,40px)', width: '100%', maxWidth: 520, boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)', border: '1px solid rgba(255,255,255,0.4)' }}>
       <div style={{ background: '#0ea5e9', color: 'white', padding: '6px 14px', borderRadius: 12, fontSize: 13, fontWeight: 700, fontFamily: 'var(--font-outfit)', display: 'inline-block', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
         Soluciones rápidas
       </div>

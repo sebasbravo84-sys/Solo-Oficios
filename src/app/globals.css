@@ -27,3 +27,67 @@ body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }
+
+/* ── RESPONSIVE HELPERS ── */
+@media (max-width: 768px) {
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: flex !important; }
+
+  /* Hero landing */
+  .hero-content-wrap {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 40px 20px !important;
+    min-height: auto !important;
+    gap: 32px !important;
+  }
+  .hero-text h1 { font-size: 40px !important; }
+
+  /* Sections padding */
+  .section-wrap { padding: 60px 20px !important; }
+
+  /* Grids → 1 columna */
+  .grid-auto { grid-template-columns: 1fr !important; }
+
+  /* App banner */
+  .app-banner-wrap {
+    flex-direction: column !important;
+    padding: 32px 20px !important;
+    text-align: center !important;
+    gap: 24px !important;
+  }
+  .app-banner-wrap h2 { font-size: 28px !important; }
+  .app-input-wrap { flex-direction: column !important; }
+
+  /* Profile */
+  .perfil-body { grid-template-columns: 1fr !important; }
+  .perfil-hero-top { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+
+  /* Dashboard */
+  .dash-layout { flex-direction: column !important; }
+  .dash-sidebar { display: none !important; }
+  .dash-bottom-nav { display: flex !important; }
+
+  /* Chat */
+  .chat-conversations { display: none !important; }
+  .chat-conversations.show { display: flex !important; }
+  .chat-right-panel { display: none !important; }
+}
+
+@media (min-width: 769px) {
+  .show-mobile { display: none !important; }
+  .dash-bottom-nav { display: none !important; }
+}
+
+/* Bottom nav dashboard mobile */
+.dash-bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  z-index: 100;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+}
