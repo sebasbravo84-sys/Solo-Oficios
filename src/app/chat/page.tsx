@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 interface Message {
   id: number
@@ -77,28 +78,91 @@ export default function ChatPage() {
   const [text, setText] = useState('')
   const [conversations, setConversations] = useState(CONVERSATIONS)
   const [typing, setTyping] = useState(false)
+  const [userId, setUserId] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const supabase = createClient()
 
   const active = conversations.find(c => c.id === activeId)!
 
+  // Obtener usuario actual
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data.user?.id ?? null)
+    })
+  }, [])
+
+  // Scroll al último mensaje
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [active?.messages])
 
-  function sendMessage() {
+  // Suscripción Realtime a mensajes de la conversación activa
+  useEffect(() => {
+    const channel = supabase
+      .channel(`messages:${activeId}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'messages', filter: `conversation_id=eq.${activeId}` },
+        (payload) => {
+          const row = payload.new as { id: string; text: string; sender_id: string; created_at: string; type: string }
+          const isMine = row.sender_id === userId
+          const newMsg: Message = {
+            id: Date.now(),
+            text: row.text,
+            sent: isMine,
+            time: new Date(row.created_at).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+          }
+          setConversations(prev => prev.map(c =>
+            c.id === activeId ? { ...c, messages: [...c.messages, newMsg], preview: row.text } : c
+          ))
+        }
+      )
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
+  }, [activeId, userId])
+
+  const sendMessage = useCallback(async () => {
     if (!text.trim()) return
-    const newMsg: Message = { id: Date.now(), text: text.trim(), sent: true, time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) }
-    setConversations(prev => prev.map(c => c.id === activeId ? { ...c, messages: [...c.messages, newMsg], preview: text.trim() } : c))
+    const msgText = text.trim()
     setText('')
 
-    // Fake reply
-    setTyping(true)
-    setTimeout(() => {
-      setTyping(false)
-      const reply: Message = { id: Date.now() + 1, text: '¡Perfecto! Te confirmo en breve. 👍', sent: false, time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) }
-      setConversations(prev => prev.map(c => c.id === activeId ? { ...c, messages: [...c.messages, reply] } : c))
-    }, 2000)
-  }
+    // Optimistic update
+    const optimistic: Message = {
+      id: Date.now(),
+      text: msgText,
+      sent: true,
+      time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+    }
+    setConversations(prev => prev.map(c =>
+      c.id === activeId ? { ...c, messages: [...c.messages, optimistic], preview: msgText } : c
+    ))
+
+    // Si hay usuario real, persistir en Supabase
+    if (userId) {
+      await supabase.from('messages').insert({
+        conversation_id: activeId,
+        sender_id: userId,
+        text: msgText,
+        type: 'text',
+      })
+    } else {
+      // Demo: simular respuesta después de 1.5s
+      setTyping(true)
+      setTimeout(() => {
+        setTyping(false)
+        const reply: Message = {
+          id: Date.now() + 1,
+          text: '¡Perfecto! Te confirmo en breve. 👍',
+          sent: false,
+          time: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+        }
+        setConversations(prev => prev.map(c =>
+          c.id === activeId ? { ...c, messages: [...c.messages, reply] } : c
+        ))
+      }, 1500)
+    }
+  }, [text, activeId, userId])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: 'Inter, sans-serif', background: '#0f172a', color: '#f1f5f9' }}>

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { Professional } from '@/types'
 import { AVATAR_COLORS, getInitials, tradeEmoji } from '@/lib/mock-data'
+import { createClient } from '@/lib/supabase/client'
 
 const MOCK_REVIEWS = [
   { name: 'Juan Carlos G.', stars: 5, text: 'Excelente profesional. Llegó puntual, resolvió rápido y el cobro fue lo acordado. Muy recomendable.', date: 'hace 3 días' },
@@ -19,13 +20,47 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
   const [tab, setTab] = useState<Tab>('info')
   const [modalOpen, setModalOpen] = useState(false)
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
   const [form, setForm] = useState({ nombre: '', descripcion: '', urgencia: 'Lo antes posible' })
 
   const avatarColor = AVATAR_COLORS[pro.id] ?? 'linear-gradient(135deg,#2563eb,#0ea5e9)'
   const initials = getInitials(pro.name)
+  const supabase = createClient()
 
-  function handleSend(e: React.FormEvent) {
+  async function handleSend(e: React.FormEvent) {
     e.preventDefault()
+    setSending(true)
+
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (user) {
+      // Guardar booking en Supabase
+      await supabase.from('bookings').insert({
+        professional_id: pro.id,
+        client_id: user.id,
+        description: form.descripcion,
+        urgency: form.urgencia,
+        status: 'pending',
+      })
+
+      // Crear conversación si no existe
+      const { data: existing } = await supabase
+        .from('conversations')
+        .select('id')
+        .eq('professional_id', pro.id)
+        .eq('client_id', user.id)
+        .single()
+
+      if (!existing) {
+        await supabase.from('conversations').insert({
+          professional_id: pro.id,
+          client_id: user.id,
+          last_message: form.descripcion,
+        })
+      }
+    }
+
+    setSending(false)
     setSent(true)
   }
 
@@ -251,8 +286,8 @@ export default function PerfilClient({ pro }: { pro: Professional }) {
                   </select>
                 </div>
 
-                <button type="submit" style={{ width: '100%', padding: 15, borderRadius: 12, fontSize: 15, fontWeight: 800, background: '#2563eb', color: '#fff', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-                  Enviar y Abrir Chat Seguro 🛡️
+                <button type="submit" disabled={sending} style={{ width: '100%', padding: 15, borderRadius: 12, fontSize: 15, fontWeight: 800, background: '#2563eb', color: '#fff', border: 'none', cursor: sending ? 'not-allowed' : 'pointer', opacity: sending ? 0.7 : 1, fontFamily: 'inherit' }}>
+                  {sending ? 'Enviando...' : 'Enviar y Abrir Chat Seguro 🛡️'}
                 </button>
                 <p style={{ textAlign: 'center', fontSize: 12, color: '#94a3b8', marginTop: 12 }}>Sin comisiones para vos. SoloOficios te protege.</p>
               </form>
